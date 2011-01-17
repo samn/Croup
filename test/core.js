@@ -27,4 +27,15 @@ describe('Class construction', function() {
         expect(cb.methodA()).toEqual('methodA');
         expect(cb.propertyA).toEqual('propertyA');
     });
+
+    describe('in non-global scopes', function() {
+        it('classes should be be defined in their local scope', function() {
+            (function() {
+                Croup.these('InnerClass').have(props);
+                ic = new InnerClass();
+                expect(ic.methodA).toBeDefined();
+            })();
+            expect(InnerClass).not.toBeDefined();        
+        });
+    });
 });
