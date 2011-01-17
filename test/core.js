@@ -1,7 +1,7 @@
 describe('class construction', function() {
     it('Croup.these(...) should return a ClassContainer', function() {
         var cc = Croup.these('ClassA', 'ClassB');
-        expect(cc.classNames).toContain(['ClassA', 'ClassB']);
+        expect(cc.classNames).toBeDefined();
         expect(cc.have).toBeDefined();
     });
 
@@ -20,11 +20,11 @@ describe('class construction', function() {
         it('classes should have properties and methods defined', function() {
             ca = new ClassA()
             expect(ca.methodA()).toEqual('methodA');
-            expect(ca.propretyA).toEqual('propertyA');
+            expect(ca.propertyA).toEqual('propertyA');
 
             cb = new ClassB()
             expect(cb.methodA()).toEqual('methodA');
-            expect(cb.propretyA).toEqual('propertyA');
+            expect(cb.propertyA).toEqual('propertyA');
         });
     });
 });
