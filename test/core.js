@@ -56,18 +56,16 @@ describe('Class Definition', function() {
     });
 
     describe('constructors', function() {
-       beforeEach(function() {
-            Croup.these('ClassA', 'ClassB').have({
-                constructor: function() {
-                    this.propA = 'propA';
-                }
-            });
+        Croup.these('ClassA', 'ClassB').have({
+            constructor: function() {
+                this.propA = 'propA';
+            }
+        });
 
-            Croup.these('ClassA', 'ClassB').have({
-                constructor: function() {
-                    this.objectProperty = new Object();
-                }
-            });
+        Croup.these('ClassA', 'ClassB').have({
+            constructor: function() {
+                this.objectProperty = new Object();
+            }
         });
 
         it('all of them should execute', function() {
@@ -83,6 +81,16 @@ describe('Class Definition', function() {
 
             instanceB = new ClassA();
             expect(instanceB.objectProperty.foo).not.toBeDefined();
+        });
+
+        it('parameters passed in to them', function() {
+            Croup.these('ClassA', 'ClassB').have({
+                constructor: function(props) {
+                    this.propA = props['propA'];
+                }
+            });
+            ca = new ClassA({'propA': 'propertay'}); 
+            expect(ca.propA).toEqual('propertay');
         });
     });
 });
