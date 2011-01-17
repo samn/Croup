@@ -6,16 +6,21 @@
  // Set up the Croup namespace
  var Croup = this.Croup = {};
 
+ // A reference to the global scope of the interpreter.
+ var globalScope = this;
+
  function ClassContainer(classNames) {
     this.classNames = classNames;
-    this.have = function(properties) {
+
+    this.have = function(properties, scope) {
+        if (scope == undefined) { scope = globalScope; }
         for(var a=0, l=this.classNames.length; a<l; a++) {
             var className = this.classNames[a];
-            if (window[className] == undefined) {
-                window[className] = function() {};
+            if (scope[className] == undefined) {
+                scope[className] = function() {};
             }
             for (var key in properties) {
-                window[className].prototype[key] = properties[key];
+                scope[className].prototype[key] = properties[key];
             }
         }
     };

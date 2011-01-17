@@ -40,12 +40,12 @@ describe('Class construction', function() {
 
     describe('in non-global scopes', function() {
         it('classes should be be defined in their local scope', function() {
-            (function() {
-                Croup.these('InnerClass').have(props);
-                ic = new InnerClass();
+            (function Foo() {
+                Croup.these('InnerClass').have(props, Foo);
+                ic = new Foo.InnerClass();
                 expect(ic.methodA).toBeDefined();
             })();
-            expect(InnerClass).not.toBeDefined();        
+            expect(window['InnerClass']).not.toBeDefined();        
         });
     });
 });
