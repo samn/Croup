@@ -10,7 +10,6 @@ describe('Class Definition', function() {
     var props = {
         methodA: function() { return 'methodA'; },
         propertyA: 'propertyA',
-        objectProperty: new Object()
     };
     Croup.these('ClassA', 'ClassB').have(props);
 
@@ -28,15 +27,6 @@ describe('Class Definition', function() {
         expect(cb.methodA()).toEqual('methodA');
         expect(cb.propertyA).toEqual('propertyA');
     });
-
-    it('reference properties should be unique per instance', function () {
-        instanceA = new ClassA();
-        instanceA.objectProperty.foo = 'foo';
-
-        instanceB = new ClassA();
-        expect(instanceB.objectProperty.foo).not.toBeDefined();
-    });
-
 
     describe('in non-global scopes', function() {
         it('classes should be be defined in their local scope', function() {
@@ -62,6 +52,37 @@ describe('Class Definition', function() {
             ca = new ClassA();
             expect(ca.method1).toBeDefined(); 
             expect(ca.method2).toBeDefined(); 
+        });
+    });
+
+    describe('constructors', function() {
+       beforeEach(function() {
+            Croup.these('ClassA', 'ClassB').have({
+                constructor: function() {
+                    this.propA = 'propA';
+                }
+            });
+
+            Croup.these('ClassA', 'ClassB').have({
+                constructor: function() {
+                    this.objectProperty = new Object();
+                }
+            });
+        });
+
+        it('all of them should execute', function() {
+            expect(ClassA).toBeDefined(); 
+            ca = new ClassA();
+            expect(ca.propA).toEqual('propA');
+            expect(ca.objectProperty).toBeDefined();
+        });
+
+        it('reference properties should be unique per instance', function () {
+            instanceA = new ClassA();
+            instanceA.objectProperty.foo = 'foo';
+
+            instanceB = new ClassA();
+            expect(instanceB.objectProperty.foo).not.toBeDefined();
         });
     });
 });
