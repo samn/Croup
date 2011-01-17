@@ -17,9 +17,18 @@
         for(var a=0, l=this.classNames.length; a<l; a++) {
             var className = this.classNames[a];
             if (scope[className] == undefined) {
-                scope[className] = function() {};
+                scope[className] = function() {
+                    for(var b=0, l=scope[className].constructors.length; b<l; b++) {
+                       scope[className].constructors[b].call(this);
+                    }
+                };
+                scope[className].constructors = [];
             }
             for (var key in properties) {
+                if (key == 'constructor') {
+                    scope[className].constructors.push(properties[key]);
+                    continue;
+                }
                 scope[className].prototype[key] = properties[key];
             }
         }
