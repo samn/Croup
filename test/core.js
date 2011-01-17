@@ -6,7 +6,7 @@ describe('ClassContainer', function() {
     });
 });
 
-describe('Class construction', function() {
+describe('Class Definition', function() {
     var props = {
         methodA: function() { return 'methodA'; },
         propertyA: 'propertyA',
@@ -46,6 +46,22 @@ describe('Class construction', function() {
                 expect(ic.methodA).toBeDefined();
             })();
             expect(window['InnerClass']).not.toBeDefined();        
+        });
+    });
+
+    describe('in multiple places', function() {
+        it('should include all properties', function() {
+            Croup.these('ClassA', 'ClassB').have({
+                method1: function() { return 'method1'; }
+            });
+
+            Croup.these('ClassA', 'ClassB').have({
+                method2: function() { return 'method2'; }
+            });
+            expect(ClassA).toBeDefined(); 
+            ca = new ClassA();
+            expect(ca.method1).toBeDefined(); 
+            expect(ca.method2).toBeDefined(); 
         });
     });
 });
