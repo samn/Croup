@@ -50,8 +50,8 @@ describe('Class Definition', function() {
             });
             expect(ClassA).toBeDefined(); 
             ca = new ClassA();
-            expect(ca.method1).toBeDefined(); 
-            expect(ca.method2).toBeDefined(); 
+            expect(ca.method1()).toEqual('method1');
+            expect(ca.method2()).toEqual('method2');
         });
     });
 
