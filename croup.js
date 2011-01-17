@@ -17,9 +17,9 @@
         for(var a=0, l=this.classNames.length; a<l; a++) {
             var className = this.classNames[a];
             if (scope[className] == undefined) {
-                scope[className] = function() {
+                scope[className] = function(argDict) {
                     for(var b=0, l=scope[className].constructors.length; b<l; b++) {
-                       scope[className].constructors[b].call(this);
+                       scope[className].constructors[b].call(this, argDict);
                     }
                 };
                 scope[className].constructors = [];
