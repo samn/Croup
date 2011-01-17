@@ -5,7 +5,6 @@
 (function () {
  // Set up the Croup namespace
  var Croup = this.Croup = {};
- var scope = this;
 
  function ClassContainer(classNames) {
     this.classNames = classNames;

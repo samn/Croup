@@ -9,7 +9,8 @@ describe('ClassContainer', function() {
 describe('Class construction', function() {
     var props = {
         methodA: function() { return 'methodA'; },
-        propertyA: 'propertyA'
+        propertyA: 'propertyA',
+        objectProperty: new Object()
     };
     Croup.these('ClassA', 'ClassB').have(props);
 
@@ -27,6 +28,15 @@ describe('Class construction', function() {
         expect(cb.methodA()).toEqual('methodA');
         expect(cb.propertyA).toEqual('propertyA');
     });
+
+    it('reference properties should be unique per instance', function () {
+        instanceA = new ClassA();
+        instanceA.objectProperty.foo = 'foo';
+
+        instanceB = new ClassA();
+        expect(instanceB.objectProperty.foo).not.toBeDefined();
+    });
+
 
     describe('in non-global scopes', function() {
         it('classes should be be defined in their local scope', function() {
