@@ -4,14 +4,14 @@
 ##Motivation
 Sharing code between classes is good but doing it with inheritance can introduce
 unwanted semantic side effects.  Inheritance models an `is-a` relationship which
-is sometimes appropriate, but problems can occur when classes are refactored,
-changing the ontology.  
+is sometimes appropriate but problems can occur when classes are refactored,
+changing the taxonomy.  
 
 
 Croup aims to provide the code reuse benefits of inheritance without the
-semantic implications.  Rather than defining a relationship among code through
+semantic implications.  Rather than defining a relationship between code through
 ancestry, code that is shared among classes is grouped together in a flat
-ontology.  Classes that have common code are 'Crouped' together.
+taxonomy.  Classes that have common code are 'Crouped' together.
 
 For Example:
 
@@ -113,8 +113,7 @@ the `have` method:
 
 ##Drawbacks
 * No polymorphism since there is no relationship between classes
-    * though JavaScript doesn't dispatch on argument types, so it's not *too*
-    serious
+    * though JavaScript doesn't dispatch on argument types
 * The name is really dumb `(CROUP -> Class gROUP ??)`
 
 ##Feedback
